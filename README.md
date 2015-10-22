@@ -1,7 +1,20 @@
-User narrative: 
+#POLOC 
 
-As a user, I want to make an app that display nearby instagram pictures around my current location. As a user I will be able to log-in, have my current location pinned and see a display of populated gallery filled with pictures around my location. As a user, these newly populated pictures will then be pinned back to the map so I can see visually where these pictures were taken. 
+Geolocate User location, generate pictures in local area, and pin locations on map. 
 
-Scope: 
+#Overview 
 
-My app consists of loggin in, displaying a user's current location and all photos around the user, allowing the user to save photo urls to a database, and logging out. # poloc
+Currently on the Instagram app, there is no efficient way to view pictures location based dynamically. 
+
+#User narrative
+
+A user will be able to pinpoint their current location and view gallery of pictures around them. A user can then find these nearby locations on the map. 
+
+#Built with
+
++ Node.js 
++ Express
++ Instagram API
++ Google Maps API 
+
+#Clone

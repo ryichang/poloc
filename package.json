@@ -1,0 +1,18 @@
+{
+  "name": "poloc",
+  "version": "1.0.0",
+  "description": "User narrative:",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.0",
+    "request": "^2.65.0"
+  }
+}
