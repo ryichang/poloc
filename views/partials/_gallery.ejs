@@ -1,4 +1,17 @@
-<div class="col-md-8 col-sm-6 col-xs-12">
-	<h1>Gallery</h1>
+<div class="col-md-7 col-sm-6 col-xs-12">
+	<h2>Gallery</h2>
+	<div class="row">
+		<% if (locations) { locations.forEach(function(location) { %>
+			<a class="fancybox" rel="gallery1" href= <%= location.images.standard_resolution.url %>
+				<img src="<%= location.images.low_resolution.url %>" class="img-rounded" alt="" />
+			</a>
 
+			<% if (location.caption !== null) { %>
+				<p><%= location.caption.from.username %></p>
+			<% } else { %>
+				<p>Taken By Anonymous</p>
+			<% } %>
+		<% }); } %>
+			</div>
+	</div>
 </div>

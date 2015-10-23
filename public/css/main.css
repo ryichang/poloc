@@ -1,1 +1,29 @@
-#map { height: 500px; width: 500px;}
+@font-face {
+	font-family: 'bauhaus';
+	src: url('../type/bauhaus.otf');
+	format('opentype');	
+}
+
+
+
+#map { 
+	height: 500px; width: 450px;
+}
+
+h1{
+	font-size: 200px;
+	font-family: 'bauhaus';
+	text-align: center;
+}
+
+h2{
+	font-size: 80px;
+	font-family: 'bauhaus';
+	text-align: left;
+}
+
+h3{
+	font-size: 80px;
+	font-family: 'bauhaus';
+	text-align: left;
+}
