@@ -6,6 +6,10 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 require('dotenv').load();
+var request = require('request'); 
+//store IG access token 
+var ig_access_token = process.env.ig_access_token;
+console.log(ig_access_token);
 
 var ig = require('instagram-node').instagram();
 instagram = require('instagram-node-lib');
@@ -23,7 +27,15 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); 
 
+var igNearby; 
 
+console.log(ig_access_token);
+request('https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.294351&access_token='+ig_access_token, function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    // This API sends the data as a string so we need to parse it. This is not typical.
+    images = JSON.parse(body).data;
+  }
+});
 
 
 

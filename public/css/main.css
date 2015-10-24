@@ -10,6 +10,8 @@
 	height: 500px; width: 450px;
 }
 
+
+
 h1{
 	font-size: 200px;
 	font-family: 'bauhaus';
@@ -23,7 +25,7 @@ h2{
 }
 
 h3{
-	font-size: 80px;
+	font-size: 14px;
 	font-family: 'bauhaus';
 	text-align: left;
 }
