@@ -5,10 +5,12 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-// var ig = require('instagram-node').instagram();
-// instagram = require('instagram-node-lib');
-// instagram.set('client_id', '73fb6decac8745f5a35da5806200e676');
-// instagram.set('client_secret', 'af59e683abca494b81d34697c1e15fc1'); 
+require('dotenv').load();
+
+var ig = require('instagram-node').instagram();
+instagram = require('instagram-node-lib');
+instagram.set('client_id', process.env.ig_client_id);
+instagram.set('client_secret', process.env.ig_client_secret); 
 
 // var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY; 
 
