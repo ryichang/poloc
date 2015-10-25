@@ -9,7 +9,9 @@ require('dotenv').load();
 var request = require('request'); 
 //store IG access token 
 var ig_access_token = process.env.ig_access_token;
+var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY; 
 console.log(ig_access_token);
+console.log(GOOGLE_API_KEY);
 
 var ig = require('instagram-node').instagram();
 instagram = require('instagram-node-lib');
@@ -27,10 +29,20 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); 
 
+var currentLocation; 
+request('https://maps.googleapis.com/maps/api/js?key='+GOOGLE_API_KEY+'&signed_in=true&callback=initMap', function (error, response, body) {
+	if (!error && response.statusCode ==200) {
+	console.log(currentLocation);
+	}
+});
+
+
+
+
 var igNearby; 
 
 console.log(ig_access_token);
-request('https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.294351&access_token='+ig_access_token, function (error, response, body) {
+request('https://api.instagram.com/v1/media/search?lat=37.7904377&lng=-122.40109810000001&distance=1000&access_token='+ig_access_token, function (error, response, body) {
   if (!error && response.statusCode == 200) {
     // This API sends the data as a string so we need to parse it. This is not typical.
     images = JSON.parse(body).data;

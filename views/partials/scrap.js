@@ -8,10 +8,4 @@
 		// 	});
 		// 	}
 		// </script> 
-		// <script async defer
-		// src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDMMrC5W4f_cKhdqnAEPHzRQGrMem085U&callback=initMap"> 
-		// </script> 
-
-		// <script
-		// src="https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDaA-JNtDZYYGeCZQEy-6pWj-IHRVdo9GY"> 
-		// </script> 
+	

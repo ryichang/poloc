@@ -7,15 +7,21 @@
 
 
 #map { 
-	height: 500px; width: 450px;
+	height: 600px; width: 400px;
 }
-
 
 
 h1{
 	font-size: 200px;
 	font-family: 'bauhaus';
 	text-align: center;
+	important postion: relative;
+	important height: 600px;
+	important background: 
+		image: url('https://unsplash.com/photos/3WbWLC6QHBg');
+	size: auto 600px
+	position: top center;
+	attachment: fixed;
 }
 
 h2{
@@ -29,3 +35,15 @@ h3{
 	font-family: 'bauhaus';
 	text-align: left;
 }
+
+/*Parallax*/
+/*
+header {
+	important postion: relative;
+	important height: 600px;
+	important background: 
+		image: url('https://unsplash.com/photos/3WbWLC6QHBg');
+	size: auto 600px
+	position: top center;
+	attachment: fixed;
+}*/

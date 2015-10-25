@@ -1,6 +1,17 @@
 //CLIENT-SIDE JAVASCRIPT 
 //On page load 
 
+//Parallax 
+// $(window).scroll(function() {
+
+// 	var wScroll = $(this).scrollTop();
+// 	$('#poloc').css({
+// 		'transform' : 'translate(opx, '+wScroll /2 +'%)'
+// 	});
+
+// });
+
+
 //globals
 var instagram_location = ""; 
 var info_row_target; 
@@ -26,6 +37,10 @@ function initMap() {
   	console.log("pos is:", pos, " and position is: ", position);
   	// store pos coordinates in DB here
   	
+  	
+
+  	setMapPosition(pos);
+
 	// make instagram API call
   	getPhotos(pos);
 }
@@ -172,7 +187,7 @@ function setMapPosition(position) {
 
 	infoWindow.setPosition(position);
 	infoWindow.setContent('Location found.');
-	// map.setCenter(pos);
+	
 	
 
 	// populate the locations of the user's other locations (iterate over collection and append to page);
@@ -207,7 +222,7 @@ $(document).ready(function() {
 	info_row_target = $("#info");
 
 	initMap();
-	// createMap();
+	//createMap();
 	// fetchInstaData(); 
 
 }); 
