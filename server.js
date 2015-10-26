@@ -36,6 +36,14 @@ request('https://maps.googleapis.com/maps/api/js?key='+GOOGLE_API_KEY+'&signed_i
 	}
 });
 
+	// app.get('/coordinates', function (req, res) {
+ //  		var pos = [
+ //  			{lat: position.coords.latitude},
+ //  			{lng: position.coords.longitude}
+ //  		];
+ //  		res.json(coordinates);
+ //  	});
+ //  	console.log(pos);
 
 
 
@@ -48,7 +56,6 @@ request('https://api.instagram.com/v1/media/search?lat=37.7904377&lng=-122.40109
     images = JSON.parse(body).data;
   }
 });
-
 
 
 app.get('/', function (req,res) {
@@ -87,11 +94,17 @@ app.get('/', function (req,res) {
 // 		res.json(coordinate);
 // 	});
 // });
+// server.js
+
+mongoose.connect(
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/YOUR_LOCAL_DATABASE_NAME' // plug in the db name you've been using
+);
 
 
+app.listen(process.env.PORT || 3000);
 
-
-
-app.listen(3000, function() {
-	console.log("server running on port 3000");
-}); 
+// app.listen(3000, function() {
+// 	console.log("server running on port 3000");
+// }); 

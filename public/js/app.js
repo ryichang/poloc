@@ -13,9 +13,14 @@
 
 
 //globals
+
 var instagram_location = ""; 
 var info_row_target; 
 var map; 
+var lat; 
+var lng;
+var pos;
+console.log(pos);
 // var pos;
 
 function initMap() {
@@ -37,8 +42,7 @@ function initMap() {
   	console.log("pos is:", pos, " and position is: ", position);
   	// store pos coordinates in DB here
   	
-  	
-
+  
   	setMapPosition(pos);
 
 	// make instagram API call
@@ -48,9 +52,11 @@ function initMap() {
 function setMapPosition(position) {
 	console.log("in setMapPosition");
 	console.log('postion is: ', position);
+
+  
 	var map = new google.maps.Map(document.getElementById('map'), {
 		center: position,
-		zoom: 14,
+		zoom: 15,
 		styles: [
     {
         "featureType": "administrative",
@@ -182,16 +188,22 @@ function setMapPosition(position) {
         ]
     }
 ]
+
 	});
+
+
 	var infoWindow = new google.maps.InfoWindow({map: map});
 
 	infoWindow.setPosition(position);
-	infoWindow.setContent('Location found.');
+	infoWindow.setContent('Current Location!');
+
+	
 	
 	
 
 	// populate the locations of the user's other locations (iterate over collection and append to page);
 }
+
 
 function getPhotos(userLocation) {
 	console.log("in get photos");
@@ -218,12 +230,24 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 
+ 
+function scrollToTop() {
+    verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
+    element = $('body');
+    offset = element.offset();
+    offsetTop = offset.top;
+    $('html, body').animate({scrollTop: offsetTop}, 500, 'linear');
+}
+
 $(document).ready(function() {
 	info_row_target = $("#info");
-
+	
 	initMap();
+
 	//createMap();
 	// fetchInstaData(); 
+	// Scrolling Button
+
 
 }); 
 
