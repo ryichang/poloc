@@ -199,11 +199,12 @@ function setMapPosition(position) {
 
 	});
 
-
+var image = "static/images/glyphLogo.png";
 var marker = new google.maps.Marker({
 	position: position,
 	map: map, 
 	title: 'Current Location',
+	icon: image,
 });
 
 
@@ -226,11 +227,16 @@ $.get('/api/images/'+ position.lat +'/'+ position.lng, function(data) {
   			var imageLocation = {lat: imageLat, lng: imageLng};
   			
   			console.log(imageLocation);
+  			// build content string populated with image url and data
+  			// make infowindow
+
   			var marker = new google.maps.Marker({
   				position: imageLocation,
   				map: map, 
   				title: 'Image locations',
   			});
+
+  			// attach listener to marker to open info
   			console.log("current marker is: ", marker);
   		}
 
