@@ -29,12 +29,12 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); 
 
-var currentLocation; 
-request('https://maps.googleapis.com/maps/api/js?key='+GOOGLE_API_KEY+'&signed_in=true&callback=initMap', function (error, response, body) {
-	if (!error && response.statusCode ==200) {
-	console.log(currentLocation);
-	}
-});
+// var currentLocation; 
+// request('https://maps.googleapis.com/maps/api/js?key='+GOOGLE_API_KEY+'&signed_in=true&callback=initMap', function (error, response, body) {
+// 	if (!error && response.statusCode ==200) {
+// 	console.log(currentLocation);
+// 	}
+// });
 
 	// app.get('/coordinates', function (req, res) {
  //  		var pos = [
@@ -47,14 +47,17 @@ request('https://maps.googleapis.com/maps/api/js?key='+GOOGLE_API_KEY+'&signed_i
 
 
 
-var igNearby; 
 
-console.log(ig_access_token);
-request('https://api.instagram.com/v1/media/search?lat=37.7904377&lng=-122.40109810000001&distance=1000&access_token='+ig_access_token, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    // This API sends the data as a string so we need to parse it. This is not typical.
-    images = JSON.parse(body).data;
-  }
+
+app.get("/api/images/:lat/:lng", function (req, res) {
+	console.log(ig_access_token);
+	request('https://api.instagram.com/v1/media/search?lat='+ req.params.lat + '&lng=' + req.params.lng + '&distance=1000&access_token='+ig_access_token, function (error, response, body) {
+	  if (!error && response.statusCode == 200) {
+	    // This API sends the data as a string so we need to parse it. This is not typical.
+	    images = JSON.parse(body).data;
+	    res.send(images);
+	  }
+	});
 });
 
 
@@ -95,12 +98,6 @@ app.get('/', function (req,res) {
 // 	});
 // });
 // server.js
-
-mongoose.connect(
-  process.env.MONGOLAB_URI ||
-  process.env.MONGOHQ_URL ||
-  'mongodb://localhost/YOUR_LOCAL_DATABASE_NAME' // plug in the db name you've been using
-);
 
 
 app.listen(process.env.PORT || 3000);

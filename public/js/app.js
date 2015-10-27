@@ -20,7 +20,7 @@ var map;
 var lat; 
 var lng;
 var pos;
-console.log(pos);
+
 // var pos;
 
 function initMap() {
@@ -35,10 +35,38 @@ function initMap() {
   function initialize(position) {
   	// this builds an object with latitude and longitude for setting the map's center
   	console.log("in initialize");
+  	
+
   	var pos = {
   		lat: position.coords.latitude,
   		lng: position.coords.longitude
   	};
+  	
+
+  	$.get('/api/images/'+ pos.lat +'/'+ pos.lng, function(data) {
+  		console.log(data);
+  			for (var i = 0; i < data.length; i++) {
+  				var q = data[i].images.standard_resolution.url;
+  				$('#gallery').append("<div class='col-sm-6 col-md-4 thumbnail'>" + "<img src='" + q + "'/>" + "</div>");
+  			}
+
+
+  	// 			 	<div class="col-sm-6 col-md-4">
+  	// 	  			<div class="thumbnail">
+  	// 	    				<img src="<%=images[i].images.standard_resolution.url%>">
+  	// 	    		<div class="caption">
+  	// 	      		<h3><%=images[i].location.name%></h3>
+  	// 	    			</div>
+  	// 	  		</div>
+  	// 			</div>
+
+  	// 			  		          <h4><%=images[i].location.latitude%></h4>
+  	// 	          <h5><%=images[i].location.longitude%></h5>
+
+  	});
+
+
+
   	console.log("pos is:", pos, " and position is: ", position);
   	// store pos coordinates in DB here
   	
@@ -191,6 +219,13 @@ function setMapPosition(position) {
 
 	});
 
+	
+	var marker = new google.maps.Marker({
+  		position: position,
+  		map: map, 
+  		title: 'Testing!'
+  	});
+
 
 	var infoWindow = new google.maps.InfoWindow({map: map});
 
@@ -243,6 +278,7 @@ $(document).ready(function() {
 	info_row_target = $("#info");
 	
 	initMap();
+
 
 	//createMap();
 	// fetchInstaData(); 

@@ -1,7 +1,11 @@
 // // DB 
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/coordinates'); 
+mongoose.connect(
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/coordinates' // plug in the db name you've been using
+);
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
