@@ -5,6 +5,15 @@
 }
 
 
+.page-header { 
+  background: url(http://im.vsco.co/1/525c62bdcbe2c107031/5476bef12c561522058b4571/vsco_112714.jpg?w=879&amp;h=659&amp;dpr=1) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+
+}
 
 #map { 
 	height: 1000px; width: 420px;
@@ -15,13 +24,8 @@ h1{
 	font-size: 200px;
 	font-family: 'bauhaus';
 	text-align: center;
-	important postion: relative;
-	important height: 600px;
-	important background: 
-		image: url('https://unsplash.com/photos/3WbWLC6QHBg');
-	size: auto 600px
-	position: top center;
-	attachment: fixed;
+
+
 }
 
 h2{
@@ -30,11 +34,16 @@ h2{
 	text-align: left;
 }
 
-h3{
-	font-size: 14px;
+
+
+
+#images {
+	font-size:14px;
 	font-family: 'bauhaus';
-	text-align: left;
+    
+
 }
+
 
 /*Parallax*/
 /*

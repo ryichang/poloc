@@ -7,6 +7,9 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 require('dotenv').load();
 var request = require('request'); 
+
+//Fav icon 
+var favicon = require('serve-favicon');
 //store IG access token 
 var ig_access_token = process.env.ig_access_token;
 var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY; 
@@ -29,26 +32,11 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); 
 
-// var currentLocation; 
-// request('https://maps.googleapis.com/maps/api/js?key='+GOOGLE_API_KEY+'&signed_in=true&callback=initMap', function (error, response, body) {
-// 	if (!error && response.statusCode ==200) {
-// 	console.log(currentLocation);
-// 	}
-// });
 
-	// app.get('/coordinates', function (req, res) {
- //  		var pos = [
- //  			{lat: position.coords.latitude},
- //  			{lng: position.coords.longitude}
- //  		];
- //  		res.json(coordinates);
- //  	});
- //  	console.log(pos);
+ 
 
 
-
-
-
+//Lat & Lng from Google Maps position, inserting position to Instagram API search
 app.get("/api/images/:lat/:lng", function (req, res) {
 	console.log(ig_access_token);
 	request('https://api.instagram.com/v1/media/search?lat='+ req.params.lat + '&lng=' + req.params.lng + '&distance=1000&access_token='+ig_access_token, function (error, response, body) {

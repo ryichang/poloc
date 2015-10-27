@@ -8,4 +8,5 @@
 		// 	});
 		// 	}
 		// </script> 
-	
+	//background for header
+//http://im.vsco.co/1/525c62bdcbe2c107031/5476bef12c561522058b4571/vsco_112714.jpg?w=879&amp;h=659&amp;dpr=1
