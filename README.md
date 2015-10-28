@@ -17,4 +17,3 @@ A user will be able to pinpoint their current location and view gallery of pictu
 + Instagram API
 + Google Maps API 
 
-#Clone

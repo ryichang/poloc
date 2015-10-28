@@ -5,8 +5,8 @@
 }
 
 
-.page-header { 
-  background: url(http://im.vsco.co/1/525c62bdcbe2c107031/5476bef12c561522058b4571/vsco_112714.jpg?w=879&amp;h=659&amp;dpr=1) no-repeat center center fixed; 
+#page-header { 
+  background: url('/static/images/header.jpg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -21,11 +21,11 @@
 
 
 h1{
-	font-size: 200px;
+	font-size: 300px;
 	font-family: 'bauhaus';
 	text-align: center;
-
-
+	color: white;
+	margin-top:100px;
 }
 
 h2{
@@ -35,7 +35,16 @@ h2{
 }
 
 
-
+#headerLogo {
+	display: block;
+    margin-left: auto;
+    margin-right: auto; 
+    height: auto; 
+    width: auto; 
+    max-width: 200px; 
+    max-height: 200px;
+   margin-bottom: 150px;
+}
 
 #images {
 	font-size:14px;
