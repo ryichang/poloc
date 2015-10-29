@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 mongoose.connect(
   process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
-  'mongodb://localhost/coordinates' // plug in the db name you've been using
+  'mongodb://localhost/images' // plug in the db name you've been using
 );
 
 var db = mongoose.connection;
@@ -13,4 +13,4 @@ db.once('open', function (callback) {
 	console.log("db is open for business");
 });
 
-module.exports.Location = require('./coordinate.js');
+module.exports.Location = require('./image.js');

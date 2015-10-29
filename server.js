@@ -21,6 +21,7 @@ instagram = require('instagram-node-lib');
 instagram.set('client_id', process.env.ig_client_id);
 instagram.set('client_secret', process.env.ig_client_secret); 
 
+
 // var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY; 
 
 //set the view engine to ejs
@@ -32,8 +33,36 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); 
 
+// api route to get all images (sanity check)
+app.get("api/images", function (req, res) {
+	//get images from db
+	db.Image.find(function(err, images) {
+		res.send(images);
+	});
+});
 
- 
+//api route to create new image
+app.post("/api/images", function (req, res) {
+	var newImage = req.body;
+	console.loog(newImage);
+
+	db.Image.create({lat: newImage.lat, lng: newImage.lng, url: newImage.url}, function (err, post) {
+		if (err) {return console.log("create error:" + err);}
+		console.log("created", image);
+		res.json(image);
+	});
+});
+
+
+
+//api route to get all images (sanity check)
+// app.get("/api/images/:lat/:lng", function (req, res) {
+// 	db.Image.find(function(err, posts) {
+// 		res.send(images);
+// 	});
+// });
+
+
 
 
 //Lat & Lng from Google Maps position, inserting position to Instagram API search
@@ -41,9 +70,13 @@ app.get("/api/images/:lat/:lng", function (req, res) {
 	console.log(ig_access_token);
 	request('https://api.instagram.com/v1/media/search?lat='+ req.params.lat + '&lng=' + req.params.lng + '&distance=1000&access_token='+ig_access_token, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
-	    // This API sends the data as a string so we need to parse it. This is not typical.
+	   
 	    images = JSON.parse(body).data;
 	    res.send(images);
+		
+
+	    //store images in database 
+	    
 	  }
 	});
 });
@@ -55,37 +88,7 @@ app.get('/', function (req,res) {
 }); 
 
 
-// app.get('/', function (req,res) {
-// 	request('https://www.googleapis.com/geolocation/v1/geolocate?key=', function (error, response, body){
-// 		if (!error && response.statusCode == 200) {
-// 			var pictures = JSON.parse(body).pictures;
 
-// 			res.render('index', {pictures: pictures});
-// 		}
-// 	}); 
-// }); 
-// var db = require('./models/index.js');
-
-// app.get('/coordinates', function(req, res) {
-// 	db.Coordinate.find({}, function(err, coordinates) {
-// 		if (err) console.log(err);
-// 		res.render('index', {
-// 			coordinates: coordinates
-// 		});
-
-// 	});
-// });
-
-// app.post('/coordinates', function(req, res) {
-// 	console.log(req.body);
-// 	db.Coordinate.create(req.body, function(err, coordinate) {
-// 		if (err) {
-// 			console.log(err);
-// 		}
-// 		res.json(coordinate);
-// 	});
-// });
-// server.js
 
 
 app.listen(process.env.PORT || 3000);

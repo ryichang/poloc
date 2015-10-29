@@ -6,15 +6,17 @@
 
 .navbar {
    background-color: transparent;
-   background: transparent;
    border-color: transparent;
    color: white;
    font-family: 'bauhaus';
    font-size: 20px;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    width: 100%
 }
 
-
-
+ 
 
 #page-header { 
   background: url('/static/images/header.jpg') no-repeat center center fixed; 
@@ -27,7 +29,9 @@
 }
 
 #map { 
-	height: 1000px; width: 420px;
+	height: 900px;
+	width:100%;
+	margin-bottom: 20px;
 }
 
 
@@ -37,12 +41,14 @@ h1{
 	text-align: center;
 	color: white ;
 	margin-top:100px;
+	 
 }
 
 h2{
 	font-size: 80px;
 	font-family: 'bauhaus';
 	text-align: left;
+	 font-size: 3.5vw;
 }
 
 
@@ -60,19 +66,34 @@ h2{
 #images {
 	font-size:14px;
 	font-family: 'bauhaus';
-    
-
 }
 
 
-/*Parallax*/
-/*
-header {
-	important postion: relative;
-	important height: 600px;
-	important background: 
-		image: url('https://unsplash.com/photos/3WbWLC6QHBg');
-	size: auto 600px
-	position: top center;
-	attachment: fixed;
-}*/
+
+#page-footer { 
+  background: url('/static/images/footer.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+h5{
+	font-size: 30px;
+	font-family: 'bauhaus';
+	text-align: left;
+	color: white;
+}
+
+#About{
+	font-size: 14px;
+	font-family: 'bauhaus';
+	text-align: left;
+	color: white;
+}
+
+.footer_copyright {
+	color: white;
+}
+
+
