@@ -329,7 +329,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 // $('#gallery').on('click', '.image-block', function(e) { e.preventDefault(); console.log(this); })
 
 
-$(document).on('click', 'button', function(e){
+$("#saved").on('click', '.image-block', function(e){
+    console.log(this);
     e.preventDefault();
 
     deleteImage(this);
@@ -365,7 +366,7 @@ $(document).ready(function() {
     var formData = img;
     console.log("formData is" + JSON.stringify(formData));
 
-    $('#saved').append("<div class='col-md-6 text-center image-block' data-lat='" + lat + "' data-lng='" + lng +  " '>" + "<img class='img-responsive' src='" + url + "'/>" + "<p>" + name + "</p>" +"</div>");
+    $('#saved').prepend("<div class='col-md-6 text-center image-block' data-lat='" + lat + "' data-lng='" + lng +  " '>" + "<img class='img-responsive' src='" + url + "'/>" + "<p>" + name + "</p>" +"</div>");
 
       console.log("here");
      $.post("/api/images", img, function(response) {

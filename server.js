@@ -115,15 +115,15 @@ app.post("/api/images", function (req, res) {
 	var newImage = req.body;
 	console.log('received:',newImage);
 
-	db.Image.create({lat: newImage.lat, lng: newImage.lng, url: newImage.url}, function (err, post) {
+	db.Image.create({lat: newImage.lat, lng: newImage.lng, url: newImage.url, name: newImage.name}, function (err, post) {
 		if (err) {return console.log("create error:" + err);}
 		console.log("created", post);
-		req.session.newImage = newImage;
-		console.log("newImages", newImage);
+		// req.session.newImage = newImage;
+		
 		
 		console.log("this post" + post);
 		res.json(post);
-		res.cookie('imageId', image._id);
+		// res.cookie('imageId', image._id);
 
 	});
 });
@@ -158,8 +158,25 @@ app.get("/api/images/:lat/:lng", function (req, res) {
 
 
 app.get('/', function (req,res) {
-	var locations = [];
-	res.render('index', {locations: locations});
+
+	var savedImages = [];
+	var savedNames = [];
+	var savedLat = [];
+	var savedLng = [];
+	db.Image.find({}, function(err, images) {
+		for (var i=0; i<images.length; i++) {
+			console.log(images[i].url);
+			savedImages.push(images[i].url);
+			savedNames.push(images[i].name);
+			savedLat.push(images[i].lat);
+			savedLng.push(images[i].lng);
+		}
+		res.render('index', {images: savedImages,
+							 names: savedNames,
+							 lat: savedLat,
+							 lng: savedLng	});
+	});
+
 }); 
 
 
