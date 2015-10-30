@@ -19,8 +19,7 @@ favicon("http://nodejs.org/", function(err, favicon_url){
 //store IG access token 
 var ig_access_token = process.env.ig_access_token;
 var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY; 
-console.log(ig_access_token);
-console.log(GOOGLE_API_KEY);
+
 
 var ig = require('instagram-node').instagram();
 instagram = require('instagram-node-lib');
@@ -133,11 +132,19 @@ app.delete("/api/images", function (req, res) {
 	var image = req.body;
 	console.log("image", image);
 	// Get the ID
+	db.Image.findbyIdandRemove('._id', function(err, user) {
+		if (err) throw err;
+	console.log('Image deleted!');
+	});
+	// db.Image.remove(function(err) {
+	// 	if (err) throw err;
 
+	// 	console.log('Image successfully deleted!');
+	// });
 	// wrong sytanx
 	// db.Image.find(id imageID).remove()
-	db.Image.remove();
 });
+
 
 //api route to get all images (sanity check)
 // app.get("/api/images/:lat/:lng", function (req, res) {
