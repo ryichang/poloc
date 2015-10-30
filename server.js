@@ -7,9 +7,15 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 require('dotenv').load();
 var request = require('request'); 
+var db = require('./models/index.js');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var cookieParser = require('cookie-parser');
+var favicon = require('favicon');
 
-//Fav icon 
-var favicon = require('serve-favicon');
+favicon("http://nodejs.org/", function(err, favicon_url){
+  'http://www.favicon.co.uk/images/f.jpg';
+});
 //store IG access token 
 var ig_access_token = process.env.ig_access_token;
 var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY; 
@@ -33,8 +39,71 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); 
 
+app.use(cookieParser());
+
+//set session options
+app.use(session ({
+	saveUnitialized: true,
+	resave: true, 
+	secret: "SuperSecretCookie",
+	store: new MongoStore({mongooseConnection: mongoose.connection}),
+	ttl: 2 * 24 * 60 * 60,
+	cookie: { maxAge: (60 * 60 * 1000)}
+}));
+
+
+// show the signup form
+app.get('/signup', function (req, res) {
+  res.render('signup');
+});
+
+// create a user 
+app.post('/users', function (req, res) {
+  console.log(req.body);
+  db.User.createSecure(req.body.email, req.body.password, function (err, newUser) {
+    req.session.userId = newUser._id;
+    res.redirect('/');
+  });
+});
+
+// show the login form
+app.get('/login', function (req, res) {
+  res.render('login');
+});
+
+// authenticate the user and set the session
+app.post('/sessions', function (req, res) {
+  // call authenticate function to check if password user entered is correct
+  db.User.authenticate(req.body.email, req.body.password, function (err, loggedInUser) {
+    if (err){
+      console.log('authentication error: ', err);
+      res.status(500).send();
+    } else {
+      console.log('setting sesstion user id ', loggedInUser._id);
+      req.session.userId = loggedInUser._id;
+      res.redirect('/');
+    }
+  });
+});
+
+// show user profile page
+app.get('/profile', function (req, res) {
+  console.log('session user id: ', req.session.userId);
+  // find the user currently logged in
+  db.User.findOne({_id: req.session.userId}, function (err, currentUser) {
+    if (err){
+      console.log('database error: ', err);
+      res.redirect('/login');
+    } else {
+      // render profile template with user's data
+      console.log('loading profile of logged in user');
+      res.render('user-show.ejs', {user: currentUser});
+    }
+  });
+});
+
 // api route to get all images (sanity check)
-app.get("api/images", function (req, res) {
+app.get("/api/images", function (req, res) {
 	//get images from db
 	db.Image.find(function(err, images) {
 		res.send(images);
@@ -44,12 +113,18 @@ app.get("api/images", function (req, res) {
 //api route to create new image
 app.post("/api/images", function (req, res) {
 	var newImage = req.body;
-	console.loog(newImage);
+	console.log('received:',newImage);
 
 	db.Image.create({lat: newImage.lat, lng: newImage.lng, url: newImage.url}, function (err, post) {
 		if (err) {return console.log("create error:" + err);}
-		console.log("created", image);
-		res.json(image);
+		console.log("created", post);
+		req.session.newImage = newImage;
+		console.log("newImages", newImage);
+		
+		console.log("this post" + post);
+		res.json(post);
+		res.cookie('imageId', image._id);
+
 	});
 });
 

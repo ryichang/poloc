@@ -13,4 +13,5 @@ db.once('open', function (callback) {
 	console.log("db is open for business");
 });
 
-module.exports.Location = require('./image.js');
+module.exports.Image = require('./image.js');
+module.exports.User = require('./user.js');

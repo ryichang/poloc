@@ -1,6 +1,6 @@
 //CLIENT-SIDE JAVASCRIPT 
 //On page load 
-
+var markers = [];
 //AFFIX NAVBAR TO TOP 
 jQuery(document).ready(function($) {
     $('#navbar-search').affix({
@@ -258,16 +258,16 @@ var marker = new google.maps.Marker({
 var infoWindow = new google.maps.InfoWindow({map: map});
 
 infoWindow.setPosition(position);
-infoWindow.setContent('YOU KNOW WHEN THAT LOCATE PING');
+infoWindow.setContent('EXPLORE');
 
 $.get('/api/images/'+ position.lat +'/'+ position.lng, function(data) {
   		console.log(data);
   		for (var i = 0; i < data.length; i++) {
-  			var igImages = data[i].images.thumbnail.url;
+  			var igImages = data[i].images.low_resolution.url;
   			var igName = data[i].location.name;
   			var imageLat = data[i].location.latitude;
   			var imageLng = data[i].location.longitude; 
-        $('#gallery').append("<div class='col-md-3 text-center image-block' data-lat='" + imageLat + "' data-lng='" + imageLng +  " '>" + "<img class='img-responsive' src='" + igImages + "'/>" + "<p>" + igName + "</p>"+ "</div>");
+        $('#gallery').append("<div class='col-md-6 text-center image-block' data-lat='" + imageLat + "' data-lng='" + imageLng +  " '>" + "<img class='img-responsive' src='" + igImages + "'/>" + "<p>" + igName + "</p>" + "</div>");
   			var imageLocation = {lat: imageLat, lng: imageLng};
 
   		
@@ -283,6 +283,7 @@ $.get('/api/images/'+ position.lat +'/'+ position.lng, function(data) {
   				icon: image,
   			});
 
+        markers.push(marker);
   
 
   			// attach listener to marker to open info
@@ -346,17 +347,69 @@ $(document).ready(function() {
     e.preventDefault();
     console.log(this);
 
-    var imageblock = $('.image-block');
+    var imageblock = $(this);
     var lat = $(imageblock).data("lat");
     var lng = $(imageblock).data("lng");
     var url = $(imageblock).children().first().attr("src");
-
+    var name = $(this, 'p').text();
     console.log(lng);
     console.log(lat);
     console.log(url);
-    // $.post("/api/image", function(response) {
-    //   console.log('response:', repsonse);
-    // $('#saved').prepend()
+    console.log(name);
+    var img = {
+                lat: lat,
+                lng: lng,
+                url: url,
+                name: name,
+    };
+    var formData = img;
+    console.log("formData is" + JSON.stringify(formData));
+
+    $('#saved').append("<div class='col-md-6 text-center image-block' data-lat='" + lat + "' data-lng='" + lng +  " '>" + "<img class='img-responsive' src='" + url + "'/>" + "<p>" + name + "</p>" +"</div>");
+
+      console.log("here");
+     $.post("/api/images", img, function(response) {
+
+
+      
+      console.log('response:', response);
+    })
+     .done(function(post) {
+      console.log("success");
+     });
+
+    $('#saved').on('click', ".image-block", function(e) {
+      e.preventDefault();
+      console.log(this);
+    });
+
+});
+   
+
+
+  // for (var i = 0; i < data.length; i++) {
+  //       var igImages = data[i].images.low_resolution.url;
+  //       var igName = data[i].location.name;
+  //       var imageLat = data[i].location.latitude;
+  //       var imageLng = data[i].location.longitude; 
+  //       $('#gallery').append("<div class='col-md-6 text-center image-block' data-lat='" + imageLat + "' data-lng='" + imageLng +  " '>" + "<img class='img-responsive' src='" + igImages + "'/>" + "<p>" + igName + "</p>" + "</div>");
+  //       var imageLocation = {lat: imageLat, lng: imageLng};
+
+      
+        
+  //       console.log(imageLocation);
+  //       // build content string populated with image url and data
+  //       // make infowindow
+  //       var image = "static/images/igMarker.png";
+  //       var marker = new google.maps.Marker({
+  //         position: imageLocation,
+  //         map: map, 
+  //         title: 'Image locations',
+  //         icon: image,
+  //       });
+
+
+   
 
     // }
 
@@ -368,7 +421,7 @@ $(document).ready(function() {
     // div class="img">
     // <img class="img-responsive" src="https://scontent.cdninstagram.com/hphotos-xaf1/t51.2885-15/s150x150/e35/12070930_1193923637291476_2001211595_n.jpg">
     // <div class="overlay"><a href="#" class="expand">+</a><a class="close-overlay hidden">x</a></div></div><p>Mel's Diner</p></div>
-  });
+ 
 
 }); 
 
