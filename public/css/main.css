@@ -73,6 +73,10 @@ h2{
 	font-family: 'bauhaus';
 }
 
+#saved {
+	font-size:14px;
+	font-family: 'bauhaus';
+}
 
 #page-footer { 
   background: url('/static/images/footer.jpg') no-repeat center center fixed; 

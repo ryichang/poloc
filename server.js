@@ -129,6 +129,15 @@ app.post("/api/images", function (req, res) {
 });
 
 
+app.delete("/api/images", function (req, res) {
+	var image = req.body;
+	console.log("image", image);
+	// Get the ID
+
+	// wrong sytanx
+	// db.Image.find(id imageID).remove()
+	db.Image.remove();
+});
 
 //api route to get all images (sanity check)
 // app.get("/api/images/:lat/:lng", function (req, res) {
@@ -163,18 +172,21 @@ app.get('/', function (req,res) {
 	var savedNames = [];
 	var savedLat = [];
 	var savedLng = [];
+	var savedId = [];
 	db.Image.find({}, function(err, images) {
 		for (var i=0; i<images.length; i++) {
-			console.log(images[i].url);
 			savedImages.push(images[i].url);
 			savedNames.push(images[i].name);
 			savedLat.push(images[i].lat);
 			savedLng.push(images[i].lng);
+			savedId.push(images[i]._id);
 		}
 		res.render('index', {images: savedImages,
-							 names: savedNames,
-							 lat: savedLat,
-							 lng: savedLng	});
+							names: savedNames,
+							lat: savedLat,
+							lng: savedLng,
+							imageIds: savedId
+							});
 	});
 
 }); 

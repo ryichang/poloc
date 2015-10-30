@@ -11,7 +11,7 @@
 			<div class="row">
 				<div id="saved">
 					<% for (var i=images.length -1; i > 0; i--) { %>
-						<div class='col-md-6 text-center image-block'><img class='img-responsive' src=<%= images[i] %>><p><%= names[i] %></p></div>
+						<div class='col-md-6 text-center image-block' 'data-lat=' + '<%= lat[i] %>'  + 'data-lng=' + '<%= lng[i] %>' + 'data-imageIds=' + '<%= imageIds[i] %> '><img class='img-responsive' src=<%= images[i] %>><p><%= names[i] %></p></div>
 					<% }  %>
 				</div>
 			</div>
@@ -33,3 +33,6 @@
 
 <% include ./partials/_footer %>
 </html> 
+
+<!-- // PUT THIS IN -->
+data-imageIds = <%= imageIds[i] %>

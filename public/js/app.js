@@ -329,20 +329,25 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 // $('#gallery').on('click', '.image-block', function(e) { e.preventDefault(); console.log(this); })
 
 
-$("#saved").on('click', '.image-block', function(e){
-    console.log(this);
-    e.preventDefault();
-
-    deleteImage(this);
-
-  });
-
-
 
 $(document).ready(function() {
-	info_row_target = $("#info");
-	
-	initMap();
+  info_row_target = $("#info");
+  
+  initMap();
+
+  $("#saved").on('click', '.image-block', function(e){
+      e.preventDefault();
+      var imageblock = $(this);
+      var id = $(imageblock).data("imageIds");
+      console.log(id);
+      imageblock.remove();
+
+      $.delete("/api/images", id, function(response) {
+
+      });
+
+    });
+
 
   $('#gallery').on('click', '.image-block', function(e) {
     e.preventDefault();
