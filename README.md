@@ -22,3 +22,7 @@ A user will be able to pinpoint their current location and view gallery of pictu
 #Future Development
 
 Incorporate dynamic markers + routes for users. 
+
+#Public Link on Heroku 
+
+https://boiling-forest-4754.herokuapp.com/
