@@ -342,7 +342,7 @@ $(document).ready(function() {
       console.log(id);
       imageblock.remove();
 
-      $.delete("/api/images", id, function(response) {
+      $.remove("/api/images", id, function(response) {
 
       });
 

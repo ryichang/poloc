@@ -128,11 +128,15 @@ app.post("/api/images", function (req, res) {
 });
 
 
+// db.Image.remove({_id: imageId}, function (err, images) {
+// 	console.log("images removed!");
+// }
+
 app.delete("/api/images", function (req, res) {
 	var image = req.body;
 	console.log("image", image);
 	// Get the ID
-	db.Image.findbyIdandRemove('._id', function(err, user) {
+	db.Image.Remove('._id', function(err, user) {
 		if (err) throw err;
 	console.log('Image deleted!');
 	});
