@@ -337,14 +337,33 @@ $(document).ready(function() {
 
   $("#saved").on('click', '.image-block', function(e){
       e.preventDefault();
-      var imageblock = $(this);
-      var id = $(imageblock).data("imageIds");
-      console.log(id);
-      imageblock.remove();
-
-      $.remove("/api/images", id, function(response) {
-
+      var imageId = $(this).attr('id');
+      var deleteImage = $(this).closest('div');
+        console.log(imageId);
+      // var imageblock = $(this);
+      // var id = $(imageblock).data("imageIds");
+      $.ajax ({
+        url: '/api/images/'  + imageId, 
+        type: 'DELETE',
+      })
+      .done(function (data) {
+        console.log(data);
+        $(deleteImage).remove();
+        console.log("this image has been removed");
+      })
+      .fail(function(data) {
+      console.log("this image could not be deleted");
       });
+    
+      
+
+      // imageblock.remove();
+
+      // $.remove("/api/images", id, function(response) {
+
+      // });
+  
+  });
 
     });
 
@@ -389,7 +408,7 @@ $(document).ready(function() {
       console.log(this);
     });
 
-});
+
    
 
 

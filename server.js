@@ -41,14 +41,14 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 
 //set session options
-app.use(session ({
-	saveUnitialized: true,
-	resave: true, 
-	secret: "SuperSecretCookie",
-	store: new MongoStore({mongooseConnection: mongoose.connection}),
-	ttl: 2 * 24 * 60 * 60,
-	cookie: { maxAge: (60 * 60 * 1000)}
-}));
+// app.use(session ({
+// 	saveUnitialized: true,
+// 	resave: true, 
+// 	secret: "SuperSecretCookie",
+// 	store: new MongoStore({mongooseConnection: mongoose.connection}),
+// 	ttl: 2 * 24 * 60 * 60,
+// 	cookie: { maxAge: (60 * 60 * 1000)}
+// }));
 
 
 // show the signup form
@@ -105,9 +105,11 @@ app.get('/profile', function (req, res) {
 app.get("/api/images", function (req, res) {
 	//get images from db
 	db.Image.find(function(err, images) {
-		res.send(images);
+		res.render('/', {images: images});
 	});
 });
+
+
 
 //api route to create new image
 app.post("/api/images", function (req, res) {
@@ -132,14 +134,21 @@ app.post("/api/images", function (req, res) {
 // 	console.log("images removed!");
 // }
 
-app.delete("/api/images", function (req, res) {
-	var image = req.body;
-	console.log("image", image);
-	// Get the ID
-	db.Image.Remove('._id', function(err, user) {
-		if (err) throw err;
-	console.log('Image deleted!');
+app.delete("/api/images/:_id", function (req, res) {
+	// var image = req.body;
+	// console.log("image", image);
+	console.log(req.params._id);
+	db.Image.find({
+		_id: req.params._id
+	}).remove(function(err, post) {
+		console.log(post);
+		console.log(removed);
 	});
+	// Get the ID
+	// db.Image.Remove('._id', function(err, user) {
+	// 	if (err) throw err;
+	// console.log('Image deleted!');
+	// });
 	// db.Image.remove(function(err) {
 	// 	if (err) throw err;
 
